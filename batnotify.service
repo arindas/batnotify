@@ -1,0 +1,8 @@
+[Unit]
+Description=Creates Notification when battery is below safe level.
+
+[Service]
+ExecStart=/bin/bash -c "while true; do ~/.local/bin/batnotify; sleep 20m; done"
+
+[Install]
+WantedBy=default.target

@@ -2,14 +2,10 @@
 
 SAFE_LEVEL=30
 
-while [ 1 -gt 0 ]
-do
-  info=$(upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full|percentage")
-  state=$(echo $info | cut -d " " -f2)
-  percentage=$(echo $info | awk '{print $NF}' | cut -d "%" -f1)
+info=$(upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full|percentage")
+state=$(echo $info | cut -d " " -f2)
+percentage=$(echo $info | awk '{print $NF}' | cut -d "%" -f1)
 
-  if [[ $percentage -lt $SAFE_LEVEL && $state == "discharging" ]]; then
-    notify-send -u critical "Battery level critical!" "Connect Charger!  <br />Battery level is at $percentage%"
-  fi
-  sleep -period 1s >/dev/null 2>&1
-done
+if [[ $percentage -lt $SAFE_LEVEL && $state == "discharging" ]]; then
+  notify-send -u critical "Battery level critical!" "Connect Charger!  <br />Battery level is at $percentage%"
+fi
