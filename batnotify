@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 
-SAFE_LEVEL=30
+if [[ -z "${SAFE_BATTERY_LEVEL}" ]]; then
+	SAFE_BATTERY_LEVEL=15
+fi
+
+if [[ -z "${NOTIF_TIMEOUT}" ]]; then
+	NOTIF_TIMEOUT=3000
+fi
 
 info=$(upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full|percentage")
 state=$(echo $info | cut -d " " -f2)
 percentage=$(echo $info | awk '{print $NF}' | cut -d "%" -f1)
 
-if [[ $percentage -lt $SAFE_LEVEL && $state == "discharging" ]]; then
-  notify-send -u critical "Battery level critical!" "Connect Charger!  <br />Battery level is at $percentage%"
+if [[ $percentage -lt $SAFE_BATTERY_LEVEL && $state == "discharging" ]]; then
+  notify-send -t $NOTIF_TIMEOUT -u critical "Battery level critical!" \
+	  "Connect Charger  <br />Battery level is at $percentage%"
 fi
