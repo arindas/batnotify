@@ -10,7 +10,7 @@ state is "discharging" and the current charge percentage is less than the
 specified `${SAFE_BATTERY_LEVEL}`, we trigger a notification using `notify-send`
 
 Now we run the script using a systemd service file. In order to repeatedly check
-the status, we run a system timer for the corresponding service file.
+the status, we run a systemd timer for the corresponding service file.
 
 ## Installation
 
@@ -27,4 +27,11 @@ cp ./batnotify.timer ~/.config/systemd/user
 # enable and start the systemd service timer
 systemctl --user enable batnotify.timer
 systemctl --user start batnotify.timer
+```
+
+## Uninstallation
+```
+# disable and stop the systemd service timer
+systemctl --user disable batnotify.timer
+systemctl --user stop batnotify.timer
 ```
