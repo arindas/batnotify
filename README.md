@@ -35,3 +35,6 @@ systemctl --user start batnotify.timer
 systemctl --user disable batnotify.timer
 systemctl --user stop batnotify.timer
 ```
+
+## See also
+- [`poweralertd`](https://sr.ht/~kennylevinsen/poweralertd/): Also handles power notifications for different wireless devices, in addition to main system power.
